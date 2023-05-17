@@ -39,9 +39,19 @@ const updateCharacter = async (id, character) => {
   }
 }
 
+const deleteCharacter = async (id) => {
+  try {
+    const deletedCharacter = await db.one("DELETE FROM characters WHERE id=$1 RETURNING *", id);
+    return deletedCharacter;
+  } catch (e) {
+    return e;
+  }
+}
+
 module.exports = {
   getAllCharacters,
   getOneCharacter,
   addCharacter,
   updateCharacter,
+  deleteCharacter
 }
