@@ -1,0 +1,19 @@
+DROP DATABASE IF EXISTS colorful_characters_dev;
+
+CREATE DATABASE colorful_characters_dev;
+
+\c colorful_characters_dev
+
+CREATE TABLE characters (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  image TEXT NOT NULL,
+  description TEXT NOT NULL,
+  protagonist BOOLEAN DEFAULT false,
+  playable BOOLEAN DEFAULT false,
+  lgbt BOOLEAN DEFAULT false,
+  lgbt_type VARCHAR(20),
+  poc BOOLEAN DEFAULT false,
+  poc_type VARCHAR(20),
+  game VARCHAR(40) NOT NULL
+);
