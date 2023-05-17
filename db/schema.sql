@@ -10,7 +10,7 @@ CREATE TABLE characters (
   image TEXT NOT NULL,
   description TEXT NOT NULL,
   protagonist BOOLEAN DEFAULT false,
-  playable_character BOOLEAN DEFAULT false,
+  playable BOOLEAN DEFAULT false,
   lgbt BOOLEAN DEFAULT false,
   lgbt_type VARCHAR(20),
   poc BOOLEAN DEFAULT false,
