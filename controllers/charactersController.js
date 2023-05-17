@@ -3,6 +3,7 @@ const characters = express.Router();
 const {
   getAllCharacters,
   getOneCharacter,
+  addCharacter,
 } = require("../queries/characters.js");
 
 characters.get("/", async (req, res) => {
@@ -35,6 +36,14 @@ characters.get("/:id", async (req, res) => {
   }
 });
 
-
+characters.post("/", async (req, res) => {
+  const characterToAdd = req.body;
+  try {
+    const newCharacter = await addCharacter(characterToAdd);
+    res.status(202).json(newCharacter);
+  } catch (e){
+    res.status(400).json({error: e});
+  }
+});
 
 module.exports = characters;

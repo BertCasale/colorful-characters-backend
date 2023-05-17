@@ -19,7 +19,18 @@ const getOneCharacter = async (id) => {
   }
 }
 
+const addCharacter = async (characterToAdd) => {
+  const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game} = characterToAdd;
+  try {
+    const newCharacter = await db.one("INSERT INTO characters (name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", [name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game]);
+    return newCharacter;
+  } catch (e) {
+    return e;
+  }
+}
+
 module.exports = {
   getAllCharacters,
-  getOneCharacter
+  getOneCharacter,
+  addCharacter,
 }
