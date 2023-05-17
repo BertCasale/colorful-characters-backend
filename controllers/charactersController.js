@@ -4,6 +4,8 @@ const {
   getAllCharacters,
   getOneCharacter,
   addCharacter,
+  updateCharacter,
+  deleteCharacter
 } = require("../queries/characters.js");
 
 characters.get("/", async (req, res) => {
@@ -38,10 +40,34 @@ characters.get("/:id", async (req, res) => {
 
 characters.post("/", async (req, res) => {
   const characterToAdd = req.body;
+
   try {
     const newCharacter = await addCharacter(characterToAdd);
     res.status(202).json(newCharacter);
-  } catch (e){
+  } catch (e) {
+    res.status(400).json({error: e});
+  }
+});
+
+characters.put("/:id", async (req, res) => {
+  const {id} = req.params;
+  const updates = req.body;
+
+  try {
+    const updatedCharacter = await updateCharacter(id, updates);
+    res.status(200).json(updatedCharacter);
+  } catch (e) {
+    res.status(400).json({error: e});
+  }
+});
+
+characters.delete("/:id", async (req, res) => {
+  const {id} = req.params;
+
+  try {
+    const deletedCharacter = await deleteCharacter(id);
+    res.status(200).json(deletedCharacter);
+  } catch (e) {
     res.status(400).json({error: e});
   }
 });
