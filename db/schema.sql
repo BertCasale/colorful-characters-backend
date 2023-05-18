@@ -12,8 +12,10 @@ CREATE TABLE characters (
   protagonist BOOLEAN DEFAULT false,
   playable BOOLEAN DEFAULT false,
   lgbt BOOLEAN DEFAULT false,
-  lgbt_type VARCHAR(20),
+  lgbt_type VARCHAR(50),
   poc BOOLEAN DEFAULT false,
-  poc_type VARCHAR(20),
+  poc_type VARCHAR(50),
+  disability BOOLEAN DEFAULT false,
+  disability_type VARCHAR(50),
   game VARCHAR(40) NOT NULL
 );
