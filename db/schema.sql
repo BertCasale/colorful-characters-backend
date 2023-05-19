@@ -6,7 +6,7 @@ CREATE DATABASE colorful_characters_dev;
 
 CREATE TABLE games (
   id SERIAL PRIMARY KEY,
-  game VARCHAR(40) NOT NULL,
+  name VARCHAR(40) NOT NULL,
   image TEXT NOT NULL,
   description TEXT NOT NULL,
   platforms TEXT,

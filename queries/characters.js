@@ -1,9 +1,8 @@
-const app = require("../app");
 const db = require("../db/dbConfig.js");
 
 const getAllCharacters = async () => {
   try {
-    const allCharacters = await db.any("SELECT * FROM characters");
+    const allCharacters = await db.any("SELECT characters.*, games.name AS game FROM characters LEFT JOIN games ON characters.game_id=games.id ORDER BY games.name ASC");
     return allCharacters;
   } catch (e) {
     return e;
@@ -12,7 +11,7 @@ const getAllCharacters = async () => {
 
 const getOneCharacter = async (id) => {
   try {
-    const singleCharacter = await db.one("SELECT * FROM characters WHERE id=$1", id);
+    const singleCharacter = await db.one("SELECT characters.*, games.name AS game FROM characters LEFT JOIN games ON characters.game_id=games.id WHERE characters.id=$1", id);
     return singleCharacter;
   } catch (e) {
     return e;
@@ -20,9 +19,9 @@ const getOneCharacter = async (id) => {
 }
 
 const addCharacter = async (characterToAdd) => {
-  const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game} = characterToAdd;
+  const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type, game_id} = characterToAdd;
   try {
-    const newCharacter = await db.one("INSERT INTO characters (name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *", [name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game]);
+    const newCharacter = await db.one("INSERT INTO characters (name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type game_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *", [name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type, game_id]);
     return newCharacter;
   } catch (e) {
     return e;
@@ -30,9 +29,9 @@ const addCharacter = async (characterToAdd) => {
 }
 
 const updateCharacter = async (id, character) => {
-  const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game} = character;
+  const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type, game_id} = character;
   try {
-    const updatedCharacter = db.one("UPDATE characters SET name=$1, image=$2, description=$3, protagonist=$4, playable=$5, lgbt=$6, lgbt_type=$7, poc=$8, poc_type=$9, game=$10 WHERE id=$11 RETURNING *",[name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, game, id]);
+    const updatedCharacter = db.one("UPDATE characters SET name=$1, image=$2, description=$3, protagonist=$4, playable=$5, lgbt=$6, lgbt_type=$7, poc=$8, poc_type=$9, disability=$10, disability_type=$11, game_id=$12 WHERE id=$13 RETURNING *",[name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type, game_id, id]);
     return updatedCharacter;
   } catch (e) {
     return e;
