@@ -1,6 +1,6 @@
 \c colorful_characters_dev
 
-INSERT INTO games (name, image, description, platforms, release, lgbt, poc, disability) VALUES 
+INSERT INTO games (game, image, description, platforms, release, lgbt, poc, disability) VALUES 
 ('Dragon Age: Origins', 'https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/0a7c563b1e75f1d3555ac12218da520e.png', 'An RPG set in a fantasy setting. You can customize your character, and have the option to romance 4 different party members. With 3 different classes, a skilltree, and many different companions to mix and match, you can play however suits your style.', 'PC, Mac, Xbox 360, Playstation 3', 2009, true, false, false),
 ('Garden Story', 'https://store-images.s-microsoft.com/image/apps.16865.14334501706636147.97df104f-715b-4347-b111-98fa1cbd5f7c.6cba5aac-f556-495a-a10d-fd4237c30714', 'An action RPG, where you play as a grape called Concord. As the next Guardian of The Grove, it is your job to bring all the villages back together and fight back against the rot.', 'PC, Mac, Nintendo Switch, Xbox One', 2021, true, false, false),
 ('Deathloop', 'https://assets-prd.ignimgs.com/2020/11/12/deathloop-button-1605211066759.jpg', 'A FPS where you play as Colt, a man recovering information about his past while trying to escape from a timeloop. After making some story progress, you can then play as the woman that kills him over and over again to keep him in the loop.', 'PC, Playstation 5, Xbox Series X/S', 2021, true, true, true),
