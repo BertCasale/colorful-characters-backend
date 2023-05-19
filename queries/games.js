@@ -31,7 +31,7 @@ const addGame = async (gameToAdd) => {
 const updateGame = async (id, game) => {
   const {name, image, description, platforms, release, lgbt, poc, disability} = game;
   try {
-    const updatedGame = db.one("UPDATE games SET name=$1, image=$2, description=$3, platforms=$4, release=$5, lgbt=$6, poc=$7, disability=$8, WHERE id=$9 RETURNING *",[name, image, description, platforms, release, lgbt, poc, disability, id]);
+    const updatedGame = db.one("UPDATE games SET name=$1, image=$2, description=$3, platforms=$4, release=$5, lgbt=$6, poc=$7, disability=$8 WHERE id=$9 RETURNING *",[name, image, description, platforms, release, lgbt, poc, disability, id]);
     return updatedGame;
   } catch (e) {
     return e;
