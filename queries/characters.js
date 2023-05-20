@@ -9,6 +9,15 @@ const getAllCharacters = async () => {
   }
 }
 
+const getAllGameCharacters = async (gameId) => {
+  try {
+    const allGameCharacters = await db.any("SELECT * FROM characters WHERE game_id=$1 ORDER BY name", gameId);
+    return allGameCharacters;
+  } catch (e) {
+    return e;
+  }
+}
+
 const getOneCharacter = async (id) => {
   try {
     const singleCharacter = await db.one("SELECT characters.*, games.name AS game FROM characters LEFT JOIN games ON characters.game_id=games.id WHERE characters.id=$1", id);
@@ -61,6 +70,7 @@ const deleteCharacter = async (id) => {
 
 module.exports = {
   getAllCharacters,
+  getAllGameCharacters,
   getOneCharacter,
   addCharacter,
   updateCharacter,

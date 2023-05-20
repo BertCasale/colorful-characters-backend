@@ -8,6 +8,9 @@ const {
   deleteGame,
   searchGames
 } = require("../queries/games.js");
+const characterController = require("./charactersController.js");
+
+games.use("/:gameId/characters", characterController)
 
 games.get("/", async (req, res) => {
   try {
@@ -34,11 +37,11 @@ games.get("/search", async (req, res) => {
   }
 });
 
-games.get("/:id", async (req, res) => {
-  const {id} = req.params;
+games.get("/:gameId", async (req, res) => {
+  const {gameId} = req.params;
 
   try {
-    const singleGame = await getOneGame(id);
+    const singleGame = await getOneGame(gameId);
 
     if (singleGame.name){
       res.status(200).json(singleGame)
@@ -61,23 +64,23 @@ games.post("/", async (req, res) => {
   }
 });
 
-games.put("/:id", async (req, res) => {
-  const {id} = req.params;
+games.put("/:gameId", async (req, res) => {
+  const {gameId} = req.params;
   const updates = req.body;
 
   try {
-    const updatedGame = await updateGame(id, updates);
+    const updatedGame = await updateGame(gameId, updates);
     res.status(200).json(updatedGame);
   } catch (e) {
     res.status(400).json({error: e});
   }
 });
 
-games.delete("/:id", async (req, res) => {
-  const {id} = req.params;
+games.delete("/:gameId", async (req, res) => {
+  const {gameId} = req.params;
 
   try {
-    const deletedGame = await deleteGame(id);
+    const deletedGame = await deleteGame(gameId);
     res.status(200).json(deletedGame);
   } catch (e) {
     res.status(400).json({error: e});

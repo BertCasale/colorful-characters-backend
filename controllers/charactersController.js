@@ -1,7 +1,8 @@
 const express = require("express");
-const characters = express.Router();
+const characters = express.Router({mergeParams: true});
 const {
   getAllCharacters,
+  getAllGameCharacters,
   getOneCharacter,
   addCharacter,
   updateCharacter,
@@ -10,7 +11,17 @@ const {
 } = require("../queries/characters.js");
 
 characters.get("/", async (req, res) => {
-  try {
+  const {gameId} = req.params;
+
+  if (gameId){
+    try {
+      const allGameCharacters = await getAllGameCharacters(gameId);
+      res.status(200).json(allGameCharacters);
+    } catch (e) {
+      res.status(400).json({error: e});
+    }
+  } else {
+    try {
     const allCharacters = await getAllCharacters();
 
     if (allCharacters[0]){
@@ -21,6 +32,8 @@ characters.get("/", async (req, res) => {
   } catch (e) {
     res.status(400).json({error: e});
   }
+  }
+  
 });
 
 characters.get("/search", async (req, res) => {
