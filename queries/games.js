@@ -28,6 +28,18 @@ const addGame = async (gameToAdd) => {
   }
 }
 
+const searchGames = async (searchTerm) => {
+  try {
+    const searchedGame = await db.any(
+      "SELECT * FROM games WHERE name ILIKE $1 OR description ILIKE $1 OR platforms ILIKE $1 ",
+      searchTerm
+    );
+    return searchedGame;
+  } catch (error) {
+    return error;
+  }
+};
+
 const updateGame = async (id, game) => {
   const {name, image, description, platforms, release, lgbt, poc, disability} = game;
   try {
@@ -52,5 +64,6 @@ module.exports = {
   getOneGame,
   addGame,
   updateGame,
-  deleteGame
+  deleteGame,
+  searchGames
 }

@@ -5,7 +5,8 @@ const {
   getOneCharacter,
   addCharacter,
   updateCharacter,
-  deleteCharacter
+  deleteCharacter,
+  searchCharacters
 } = require("../queries/characters.js");
 
 characters.get("/", async (req, res) => {
@@ -19,6 +20,17 @@ characters.get("/", async (req, res) => {
     }
   } catch (e) {
     res.status(400).json({error: e});
+  }
+});
+
+characters.get("/search", async (req, res) => {
+  const searchTerm = `%${req.query.character}%`;
+  try {
+    const searchedCharacters = await searchCharacters(searchTerm);
+
+    res.status(200).json(searchedCharacters);
+  } catch (error) {
+    res.status(400).json({ error: error });
   }
 });
 

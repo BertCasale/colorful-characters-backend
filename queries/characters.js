@@ -28,6 +28,18 @@ const addCharacter = async (characterToAdd) => {
   }
 }
 
+const searchCharacters = async (searchTerm) => {
+  try {
+    const searchedCharacter = await db.any(
+      "SELECT * FROM characters WHERE name ILIKE $1 OR description ILIKE $1 OR lgbt_type ILIKE $1 OR poc_type ILIKE $1 OR disability_type ILIKE $1",
+      searchTerm
+    );
+    return searchedCharacter;
+  } catch (error) {
+    return error;
+  }
+};
+
 const updateCharacter = async (id, character) => {
   const {name, image, description, protagonist, playable, lgbt, lgbt_type, poc, poc_type, disability, disability_type, game_id} = character;
   try {
@@ -52,5 +64,6 @@ module.exports = {
   getOneCharacter,
   addCharacter,
   updateCharacter,
-  deleteCharacter
+  deleteCharacter,
+  searchCharacters
 }

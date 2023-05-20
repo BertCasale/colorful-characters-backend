@@ -6,6 +6,7 @@ const {
   addGame,
   updateGame,
   deleteGame,
+  searchGames
 } = require("../queries/games.js");
 
 games.get("/", async (req, res) => {
@@ -19,6 +20,19 @@ games.get("/", async (req, res) => {
     }
   } catch (e) {
     res.status(400).json({error: e});
+  }
+});
+
+games.get("/search", async (req, res) => {
+  const searchTerm = `%${req.query.game}%`;
+  try {
+    const searchedGames = await searchGames(searchTerm);
+    console.log(searchedGames)
+    console.log(searchTerm)
+    
+    res.status(200).json(searchedGames);
+  } catch (error) {
+    res.status(400).json({ error: error });
   }
 });
 
