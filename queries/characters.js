@@ -31,7 +31,7 @@ const addCharacter = async (characterToAdd) => {
 const searchCharacters = async (searchTerm) => {
   try {
     const searchedCharacter = await db.any(
-      "SELECT * FROM characters WHERE name ILIKE $1 OR description ILIKE $1 OR lgbt_type ILIKE $1 OR poc_type ILIKE $1 OR disability_type ILIKE $1",
+      "SELECT characters.*, games.name AS game FROM characters LEFT JOIN games ON characters.game_id=games.id WHERE characters.name ILIKE $1 OR characters.description ILIKE $1 OR lgbt_type ILIKE $1 OR poc_type ILIKE $1 OR disability_type ILIKE $1",
       searchTerm
     );
     return searchedCharacter;

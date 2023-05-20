@@ -27,8 +27,6 @@ games.get("/search", async (req, res) => {
   const searchTerm = `%${req.query.game}%`;
   try {
     const searchedGames = await searchGames(searchTerm);
-    console.log(searchedGames)
-    console.log(searchTerm)
     
     res.status(200).json(searchedGames);
   } catch (error) {
